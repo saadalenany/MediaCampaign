@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        logicalFilePath="init_system_schema.xml"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="admin" id="1">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="admin" schemaName="social_campaign"/>
+			</not>
+		</preConditions>
+		<comment>CREATE Admin IF NOT EXISTS</comment>
+		<createTable
+				schemaName="social_campaign"
+				tableName="admin">
+			<column name="id" type="varchar(36)">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="name" type="varchar(75)">
+                <constraints nullable="false" unique="true"/>
+			</column>
+			<column name="password" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+    <changeSet author="admin" id="2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="socialPlatform" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Social Platform IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="socialPlatform">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(75)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="sourcePage" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Source Page IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="sourcePage">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="page_url" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_admin_source_page_id"
+                             references="admin(id)"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="targetPage" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Target Page IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="targetPage">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="page_url" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_admin_target_page_id"
+                             references="admin(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="campaign" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Campaign IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="campaign">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sourcePage" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_source_page_campaign_id"
+                             references="sourcePage(id)"/>
+            </column>
+            <column name="targetPage" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_target_page_campaign_id"
+                             references="targetPage(id)"/>
+            </column>
+            <column name="socialPlatform" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_social_platform_campaign_id"
+                             references="socialPlatform(id)"/>
+            </column>
+            <column name="sourceTitle" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_with_ornot" type="bool"/>
+            <column name="scrap_limitation" type="integer(5)"/>
+            <column name="post_thread" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="block_keywords" type="text"/>
+            <column name="active" type="bool"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="post" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Post IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="post">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="datetime(3)"/>
+            <column name="campaign_id" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_post_campaign_id"
+                             references="campaign(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="text" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Text IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="text">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="content" type="text"/>
+            <column name="post_id" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_text_post_id"
+                             references="post(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="image" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Image IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="image">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="image" type="LONGBLOB"/>
+            <column name="post_id" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_image_post_id"
+                             references="post(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="9">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="video" schemaName="social_campaign"/>
+            </not>
+        </preConditions>
+        <comment>CREATE Video IF NOT EXISTS</comment>
+        <createTable
+                schemaName="social_campaign"
+                tableName="video">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="video" type="LONGBLOB"/>
+            <column name="post_id" type="varchar(36)">
+                <constraints nullable="false"
+                             foreignKeyName="fk_video_post_id"
+                             references="post(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
