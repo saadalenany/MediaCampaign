@@ -43,24 +43,16 @@ public class AdminModel {
         return sourcePages;
     }
 
-    public void setSourcePages(List<SourcePageModel> newSourcePages) {
-        this.sourcePages.clear();
-        if (newSourcePages != null) {
-            newSourcePages.forEach(o -> o.setOwner(this));
-            this.sourcePages.addAll(newSourcePages);
-        }
+    public void setSourcePages(List<SourcePageModel> sourcePages) {
+        this.sourcePages = sourcePages;
     }
 
     public List<TargetPageModel> getTargetPages() {
         return targetPages;
     }
 
-    public void setTargetPages(List<TargetPageModel> newTargetPages) {
-        this.targetPages.clear();
-        if (newTargetPages != null) {
-            newTargetPages.forEach(o -> o.setOwner(this));
-            this.targetPages.addAll(newTargetPages);
-        }
+    public void setTargetPages(List<TargetPageModel> targetPages) {
+        this.targetPages = targetPages;
     }
 
     @Override

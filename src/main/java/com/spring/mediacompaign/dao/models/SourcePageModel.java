@@ -1,8 +1,5 @@
 package com.spring.mediacompaign.dao.models;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +9,7 @@ public class SourcePageModel {
 
     private String pageUrl;
 
-    private AdminModel owner;
+    private String ownerId;
 
     private String username;
 
@@ -36,12 +33,12 @@ public class SourcePageModel {
         this.pageUrl = pageUrl;
     }
 
-    public AdminModel getOwner() {
-        return owner;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner(AdminModel owner) {
-        this.owner = owner;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getUsername() {
@@ -64,12 +61,8 @@ public class SourcePageModel {
         return campaigns;
     }
 
-    public void setCampaigns(List<CampaignModel> newCampaigns) {
-        this.campaigns.clear();
-        if (newCampaigns != null) {
-            newCampaigns.forEach(o -> o.setSourcePage(this));
-            this.campaigns.addAll(newCampaigns);
-        }
+    public void setCampaigns(List<CampaignModel> campaigns) {
+        this.campaigns = campaigns;
     }
 
     @Override
@@ -77,7 +70,7 @@ public class SourcePageModel {
         return "SourcePageModel{" +
                 "id='" + id + '\'' +
                 ", pageUrl='" + pageUrl + '\'' +
-                ", owner=" + owner +
+                ", ownerId='" + ownerId + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", campaigns=" + campaigns +

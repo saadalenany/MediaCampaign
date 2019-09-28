@@ -12,7 +12,7 @@ public class PostModel {
 
     private LocalDateTime date;
 
-    private CampaignModel campaign;
+    private String campaignId;
 
     private List<TextModel> texts = new ArrayList<>();
 
@@ -44,12 +44,12 @@ public class PostModel {
         this.date = date;
     }
 
-    public CampaignModel getCampaign() {
-        return campaign;
+    public String getCampaignId() {
+        return campaignId;
     }
 
-    public void setCampaign(CampaignModel campaign) {
-        this.campaign = campaign;
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
     }
 
     public List<TextModel> getTexts() {
@@ -64,24 +64,16 @@ public class PostModel {
         return images;
     }
 
-    public void setImages(List<ImageModel> newImages) {
-        this.images.clear();
-        if (newImages != null) {
-            newImages.forEach(o -> o.setPost(this));
-            this.images.addAll(newImages);
-        }
+    public void setImages(List<ImageModel> images) {
+        this.images = images;
     }
 
     public List<VideoModel> getVideos() {
         return videos;
     }
 
-    public void setVideos(List<VideoModel> newVideos) {
-        this.videos.clear();
-        if (newVideos != null) {
-            newVideos.forEach(o -> o.setPost(this));
-            this.videos.addAll(newVideos);
-        }
+    public void setVideos(List<VideoModel> videos) {
+        this.videos = videos;
     }
 
     @Override
@@ -90,7 +82,7 @@ public class PostModel {
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", date=" + date +
-                ", campaign=" + campaign +
+                ", campaignId='" + campaignId + '\'' +
                 ", texts=" + texts +
                 ", images=" + images +
                 ", videos=" + videos +

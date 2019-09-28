@@ -44,6 +44,9 @@
             <column name="name" type="varchar(75)">
                 <constraints nullable="false"/>
             </column>
+            <column name="access_token" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -165,7 +168,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="date" type="datetime(3)"/>
-            <column name="campaign_id" type="varchar(36)">
+            <column name="campaignId" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_post_campaign_id"
                              references="campaign(id)"/>
@@ -187,7 +190,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="content" type="text"/>
-            <column name="post_id" type="varchar(36)">
+            <column name="postId" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_text_post_id"
                              references="post(id)"/>
@@ -209,7 +212,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="image" type="LONGBLOB"/>
-            <column name="post_id" type="varchar(36)">
+            <column name="postId" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_image_post_id"
                              references="post(id)"/>
@@ -231,7 +234,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="video" type="LONGBLOB"/>
-            <column name="post_id" type="varchar(36)">
+            <column name="postId" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_video_post_id"
                              references="post(id)"/>

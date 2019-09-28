@@ -9,11 +9,11 @@ public class CampaignModel {
 
     private String name;
 
-    private SourcePageModel sourcePage;
+    private String sourcePageId;
 
-    private TargetPageModel targetPage;
+    private String targetPageId;
 
-    private SocialPlatformModel socialPlatform;
+    private String socialPlatformId;
 
     private String sourceTitle;
 
@@ -47,28 +47,28 @@ public class CampaignModel {
         this.name = name;
     }
 
-    public SourcePageModel getSourcePage() {
-        return sourcePage;
+    public String getSourcePageId() {
+        return sourcePageId;
     }
 
-    public void setSourcePage(SourcePageModel sourcePage) {
-        this.sourcePage = sourcePage;
+    public void setSourcePageId(String sourcePageId) {
+        this.sourcePageId = sourcePageId;
     }
 
-    public TargetPageModel getTargetPage() {
-        return targetPage;
+    public String getTargetPageId() {
+        return targetPageId;
     }
 
-    public void setTargetPage(TargetPageModel targetPage) {
-        this.targetPage = targetPage;
+    public void setTargetPageId(String targetPageId) {
+        this.targetPageId = targetPageId;
     }
 
-    public SocialPlatformModel getSocialPlatform() {
-        return socialPlatform;
+    public String getSocialPlatformId() {
+        return socialPlatformId;
     }
 
-    public void setSocialPlatform(SocialPlatformModel socialPlatform) {
-        this.socialPlatform = socialPlatform;
+    public void setSocialPlatformId(String socialPlatformId) {
+        this.socialPlatformId = socialPlatformId;
     }
 
     public String getSourceTitle() {
@@ -131,12 +131,8 @@ public class CampaignModel {
         return posts;
     }
 
-    public void setPosts(List<PostModel> newPosts) {
-        this.posts.clear();
-        if (newPosts != null) {
-            newPosts.forEach(o -> o.setCampaign(this));
-            this.posts.addAll(newPosts);
-        }
+    public void setPosts(List<PostModel> posts) {
+        this.posts = posts;
     }
 
     @Override
@@ -144,9 +140,9 @@ public class CampaignModel {
         return "CampaignModel{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", sourcePage=" + sourcePage +
-                ", targetPage=" + targetPage +
-                ", socialPlatform=" + socialPlatform +
+                ", sourcePageId='" + sourcePageId + '\'' +
+                ", targetPageId='" + targetPageId + '\'' +
+                ", socialPlatformId='" + socialPlatformId + '\'' +
                 ", sourceTitle='" + sourceTitle + '\'' +
                 ", sourceWithOrnot=" + sourceWithOrnot +
                 ", scrapLimitation=" + scrapLimitation +

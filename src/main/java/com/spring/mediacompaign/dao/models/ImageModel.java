@@ -8,7 +8,7 @@ public class ImageModel {
 
     private byte[] image;
 
-    private PostModel post;
+    private String postId;
 
     public String getId() {
         return id;
@@ -26,12 +26,12 @@ public class ImageModel {
         this.image = image;
     }
 
-    public PostModel getPost() {
-        return post;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setPost(PostModel post) {
-        this.post = post;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ImageModel {
         return "ImageModel{" +
                 "id='" + id + '\'' +
                 ", image=" + Arrays.toString(image) +
-                ", post=" + post +
+                ", postId='" + postId + '\'' +
                 '}';
     }
 }

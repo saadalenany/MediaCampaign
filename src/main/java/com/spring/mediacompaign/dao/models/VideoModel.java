@@ -1,8 +1,5 @@
 package com.spring.mediacompaign.dao.models;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.util.Arrays;
 
 public class VideoModel {
@@ -11,7 +8,7 @@ public class VideoModel {
 
     private byte[] video;
 
-    private PostModel post;
+    private String postId;
 
     public String getId() {
         return id;
@@ -29,12 +26,12 @@ public class VideoModel {
         this.video = video;
     }
 
-    public PostModel getPost() {
-        return post;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setPost(PostModel post) {
-        this.post = post;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     @Override
@@ -42,7 +39,7 @@ public class VideoModel {
         return "VideoModel{" +
                 "id='" + id + '\'' +
                 ", video=" + Arrays.toString(video) +
-                ", post=" + post +
+                ", postId='" + postId + '\'' +
                 '}';
     }
 }
