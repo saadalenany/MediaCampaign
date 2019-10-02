@@ -3,9 +3,7 @@ package com.spring.mediacompaign.dao.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SourcePageModel {
-
-    private String id;
+public class SourcePageModel extends VersionedModel{
 
     private String pageUrl;
 
@@ -16,14 +14,6 @@ public class SourcePageModel {
     private String password;
 
     private List<CampaignModel> campaigns = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getPageUrl() {
         return pageUrl;
@@ -68,8 +58,7 @@ public class SourcePageModel {
     @Override
     public String toString() {
         return "SourcePageModel{" +
-                "id='" + id + '\'' +
-                ", pageUrl='" + pageUrl + '\'' +
+                "pageUrl='" + pageUrl + '\'' +
                 ", ownerId='" + ownerId + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostModel {
-
-    private String id;
+public class PostModel extends VersionedModel{
 
     private String title;
 
@@ -19,14 +17,6 @@ public class PostModel {
     private List<ImageModel> images = new ArrayList<>();
 
     private List<VideoModel> videos = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -79,8 +69,7 @@ public class PostModel {
     @Override
     public String toString() {
         return "PostModel{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", date=" + date +
                 ", campaignId='" + campaignId + '\'' +
                 ", texts=" + texts +

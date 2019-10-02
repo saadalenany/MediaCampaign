@@ -1,14 +1,15 @@
 package com.spring.mediacompaign.services.api;
 
 import com.spring.mediacompaign.dao.models.TextModel;
+import com.spring.mediacompaign.dao.models.VersionedModel;
 
 import java.util.List;
 
 public interface TextService {
 
-    TextModel save(TextModel textModel);
+    VersionedModel save(TextModel textModel);
 
-    TextModel update(TextModel textModel);
+    VersionedModel update(TextModel textModel);
 
     TextModel getById(String id);
 

@@ -1,20 +1,10 @@
 package com.spring.mediacompaign.dao.models;
 
-public class TextModel {
-
-    private String id;
+public class TextModel extends VersionedModel{
 
     private String content;
 
     private String postId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getContent() {
         return content;
@@ -35,8 +25,7 @@ public class TextModel {
     @Override
     public String toString() {
         return "TextModel{" +
-                "id='" + id + '\'' +
-                ", content='" + content + '\'' +
+                "content='" + content + '\'' +
                 ", postId='" + postId + '\'' +
                 '}';
     }

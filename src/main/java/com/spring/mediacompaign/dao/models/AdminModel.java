@@ -3,9 +3,7 @@ package com.spring.mediacompaign.dao.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminModel {
-
-    private String id;
+public class AdminModel extends VersionedModel{
 
     private String name;
 
@@ -14,14 +12,6 @@ public class AdminModel {
     private List<SourcePageModel> sourcePages = new ArrayList<>();
 
     private List<TargetPageModel> targetPages = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -58,8 +48,7 @@ public class AdminModel {
     @Override
     public String toString() {
         return "AdminModel{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", sourcePages=" + sourcePages +
                 ", targetPages=" + targetPages +

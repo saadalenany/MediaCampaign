@@ -1,14 +1,15 @@
 package com.spring.mediacompaign.services.api;
 
 import com.spring.mediacompaign.dao.models.TargetPageModel;
+import com.spring.mediacompaign.dao.models.VersionedModel;
 
 import java.util.List;
 
 public interface TargetPageService {
 
-    TargetPageModel save(TargetPageModel targetPageModel);
+    VersionedModel save(TargetPageModel targetPageModel);
 
-    TargetPageModel update(TargetPageModel targetPageModel);
+    VersionedModel update(TargetPageModel targetPageModel);
 
     TargetPageModel getById(String id);
 

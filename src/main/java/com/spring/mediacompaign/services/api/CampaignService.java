@@ -1,14 +1,15 @@
 package com.spring.mediacompaign.services.api;
 
 import com.spring.mediacompaign.dao.models.CampaignModel;
+import com.spring.mediacompaign.dao.models.VersionedModel;
 
 import java.util.List;
 
 public interface CampaignService {
 
-    CampaignModel save(CampaignModel campaignModel);
+    VersionedModel save(CampaignModel campaignModel);
 
-    CampaignModel update(CampaignModel campaignModel);
+    VersionedModel update(CampaignModel campaignModel);
 
     CampaignModel getById(String id);
 

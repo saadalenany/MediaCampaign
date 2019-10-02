@@ -2,16 +2,20 @@ package com.spring.mediacompaign.services.impl;
 
 import com.spring.mediacompaign.dao.entities.SourcePageEntity;
 import com.spring.mediacompaign.dao.models.SourcePageModel;
+import com.spring.mediacompaign.dao.models.VersionedModel;
 import com.spring.mediacompaign.dao.repos.SourcePageReository;
 import com.spring.mediacompaign.mappers.SourcePageMapper;
 import com.spring.mediacompaign.services.api.SourcePageService;
+import com.spring.mediacompaign.services.validators.GeneralValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class SourcePageServiceImpl implements SourcePageService {
+public class SourcePageServiceImpl implements SourcePageService, GeneralValidator<SourcePageModel> {
 
     @Autowired
     private SourcePageReository sourcePageRepository;
@@ -20,18 +24,27 @@ public class SourcePageServiceImpl implements SourcePageService {
     private SourcePageMapper sourcePageMapper;
 
     @Override
-    public SourcePageModel save(SourcePageModel sourcePageModel) {
+    public VersionedModel save(SourcePageModel sourcePageModel) {
+        final VersionedModel posted = post(sourcePageModel);
+        if (posted != null) {
+            return posted;
+        }
         SourcePageEntity saved = sourcePageRepository.save(sourcePageMapper.toEntity(sourcePageModel));
         return sourcePageMapper.toModel(saved);
     }
 
     @Override
-    public SourcePageModel update(SourcePageModel sourcePageModel) {
+    public VersionedModel update(SourcePageModel sourcePageModel) {
+        final VersionedModel putted = put(sourcePageModel);
+        if (putted != null) {
+            return putted;
+        }
         SourcePageEntity saved = sourcePageRepository.save(sourcePageMapper.toEntity(sourcePageModel));
         return sourcePageMapper.toModel(saved);
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public SourcePageModel getById(String id) {
         SourcePageEntity sourcePageEntity = sourcePageRepository.findById(id).
                 orElseThrow(() -> new RuntimeException(String.format("No Source Page found with this id [%s]", id)));
@@ -45,6 +58,7 @@ public class SourcePageServiceImpl implements SourcePageService {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public List<SourcePageModel> list() {
         List<SourcePageEntity> all = sourcePageRepository.findAll();
         return sourcePageMapper.toModels(all);

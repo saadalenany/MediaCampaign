@@ -3,23 +3,13 @@ package com.spring.mediacompaign.dao.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocialPlatformModel {
-
-    private String id;
+public class SocialPlatformModel extends VersionedModel{
 
     private String name;
 
     private String accessToken;
 
     private List<CampaignModel> campaigns = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -48,8 +38,7 @@ public class SocialPlatformModel {
     @Override
     public String toString() {
         return "SocialPlatformModel{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", campaigns=" + campaigns +
                 '}';

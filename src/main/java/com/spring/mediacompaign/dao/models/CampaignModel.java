@@ -3,9 +3,7 @@ package com.spring.mediacompaign.dao.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CampaignModel {
-
-    private String id;
+public class CampaignModel extends VersionedModel{
 
     private String name;
 
@@ -30,14 +28,6 @@ public class CampaignModel {
     private Boolean active;
 
     private List<PostModel> posts = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -138,8 +128,7 @@ public class CampaignModel {
     @Override
     public String toString() {
         return "CampaignModel{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", sourcePageId='" + sourcePageId + '\'' +
                 ", targetPageId='" + targetPageId + '\'' +
                 ", socialPlatformId='" + socialPlatformId + '\'' +

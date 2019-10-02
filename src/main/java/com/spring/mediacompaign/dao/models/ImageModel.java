@@ -2,21 +2,11 @@ package com.spring.mediacompaign.dao.models;
 
 import java.util.Arrays;
 
-public class ImageModel {
-
-    private String id;
+public class ImageModel extends VersionedModel{
 
     private byte[] image;
 
     private String postId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public byte[] getImage() {
         return image;
@@ -37,8 +27,7 @@ public class ImageModel {
     @Override
     public String toString() {
         return "ImageModel{" +
-                "id='" + id + '\'' +
-                ", image=" + Arrays.toString(image) +
+                "image=" + Arrays.toString(image) +
                 ", postId='" + postId + '\'' +
                 '}';
     }

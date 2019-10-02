@@ -1,14 +1,15 @@
 package com.spring.mediacompaign.services.api;
 
 import com.spring.mediacompaign.dao.models.PostModel;
+import com.spring.mediacompaign.dao.models.VersionedModel;
 
 import java.util.List;
 
 public interface PostService {
 
-    PostModel save(PostModel postModel);
+    VersionedModel save(PostModel postModel);
 
-    PostModel update(PostModel postModel);
+    VersionedModel update(PostModel postModel);
 
     PostModel getById(String id);
 
