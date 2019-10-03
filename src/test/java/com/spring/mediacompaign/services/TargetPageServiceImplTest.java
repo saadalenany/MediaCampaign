@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TargetPageServiceImplTest extends BaseTest {
+class TargetPageServiceImplTest extends BaseTest {
 
     @Autowired
     private AdminService adminService;
@@ -119,7 +119,7 @@ public class TargetPageServiceImplTest extends BaseTest {
         try {
             targetPageService.delete("X");
         } catch (EmptyResultDataAccessException ex) {
-            assertEquals("No class "+ TargetPageEntity.class.getName() +" entity with id X exists!", ex.getMessage());
+            assertEquals("No class " + TargetPageEntity.class.getName() + " entity with id X exists!", ex.getMessage());
         }
     }
 
@@ -135,7 +135,7 @@ public class TargetPageServiceImplTest extends BaseTest {
         assertEquals(targetPage.getPageUrl(), saved.getPageUrl());
 
         final List<TargetPageModel> newList = targetPageService.list();
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
     }
 
     private TargetPageModel createTargetPage() {

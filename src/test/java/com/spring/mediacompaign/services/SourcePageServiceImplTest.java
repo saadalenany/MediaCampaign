@@ -1,6 +1,5 @@
 package com.spring.mediacompaign.services;
 
-import com.spring.mediacompaign.dao.entities.AdminEntity;
 import com.spring.mediacompaign.dao.entities.SourcePageEntity;
 import com.spring.mediacompaign.dao.models.AdminModel;
 import com.spring.mediacompaign.dao.models.SourcePageModel;
@@ -18,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SourcePageServiceImplTest extends BaseTest {
+class SourcePageServiceImplTest extends BaseTest {
 
     @Autowired
     private AdminService adminService;
@@ -132,7 +131,7 @@ public class SourcePageServiceImplTest extends BaseTest {
         try {
             sourcePageService.delete("X");
         } catch (EmptyResultDataAccessException ex) {
-            assertEquals("No class "+ SourcePageEntity.class.getName() +" entity with id X exists!", ex.getMessage());
+            assertEquals("No class " + SourcePageEntity.class.getName() + " entity with id X exists!", ex.getMessage());
         }
     }
 
@@ -150,7 +149,7 @@ public class SourcePageServiceImplTest extends BaseTest {
         assertEquals(sourcePage.getPassword(), saved.getPassword());
 
         final List<SourcePageModel> newList = sourcePageService.list();
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
     }
 
     private SourcePageModel createSourcePage() {

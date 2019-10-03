@@ -31,13 +31,13 @@
     <changeSet author="admin" id="2">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="socialPlatform" schemaName="social_campaign"/>
+                <tableExists tableName="social_platform" schemaName="social_campaign"/>
             </not>
         </preConditions>
         <comment>CREATE Social Platform IF NOT EXISTS</comment>
         <createTable
                 schemaName="social_campaign"
-                tableName="socialPlatform">
+                tableName="social_platform">
             <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -53,13 +53,13 @@
     <changeSet author="admin" id="3">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="sourcePage" schemaName="social_campaign"/>
+                <tableExists tableName="source_page" schemaName="social_campaign"/>
             </not>
         </preConditions>
         <comment>CREATE Source Page IF NOT EXISTS</comment>
         <createTable
                 schemaName="social_campaign"
-                tableName="sourcePage">
+                tableName="source_page">
             <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -83,13 +83,13 @@
     <changeSet author="admin" id="4">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="targetPage" schemaName="social_campaign"/>
+                <tableExists tableName="target_page" schemaName="social_campaign"/>
             </not>
         </preConditions>
         <comment>CREATE Target Page IF NOT EXISTS</comment>
         <createTable
                 schemaName="social_campaign"
-                tableName="targetPage">
+                tableName="target_page">
             <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -120,22 +120,22 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="sourcePage" type="varchar(36)">
+            <column name="source_page_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_source_page_campaign_id"
-                             references="sourcePage(id)"/>
+                             references="source_page(id)"/>
             </column>
-            <column name="targetPage" type="varchar(36)">
+            <column name="target_page_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_target_page_campaign_id"
-                             references="targetPage(id)"/>
+                             references="target_page(id)"/>
             </column>
-            <column name="socialPlatform" type="varchar(36)">
+            <column name="social_platform_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_social_platform_campaign_id"
-                             references="socialPlatform(id)"/>
+                             references="social_platform(id)"/>
             </column>
-            <column name="sourceTitle" type="varchar(255)">
+            <column name="source_title" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="source_with_ornot" type="bool"/>
@@ -168,7 +168,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="date" type="datetime(3)"/>
-            <column name="campaignId" type="varchar(36)">
+            <column name="campaign_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_post_campaign_id"
                              references="campaign(id)"/>
@@ -190,7 +190,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="content" type="text"/>
-            <column name="postId" type="varchar(36)">
+            <column name="post_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_text_post_id"
                              references="post(id)"/>
@@ -212,7 +212,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="image" type="LONGBLOB"/>
-            <column name="postId" type="varchar(36)">
+            <column name="post_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_image_post_id"
                              references="post(id)"/>
@@ -234,7 +234,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="video" type="LONGBLOB"/>
-            <column name="postId" type="varchar(36)">
+            <column name="post_id" type="varchar(36)">
                 <constraints nullable="false"
                              foreignKeyName="fk_video_post_id"
                              references="post(id)"/>

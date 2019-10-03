@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SocialPlatformServiceImplTest extends BaseTest {
+class SocialPlatformServiceImplTest extends BaseTest {
 
     @Autowired
     private SocialPlatformService socialPlatformService;
@@ -113,24 +113,24 @@ public class SocialPlatformServiceImplTest extends BaseTest {
         try {
             socialPlatformService.delete("X");
         } catch (EmptyResultDataAccessException ex) {
-            assertEquals("No class "+ SocialPlatformEntity.class.getName() +" entity with id X exists!", ex.getMessage());
+            assertEquals("No class " + SocialPlatformEntity.class.getName() + " entity with id X exists!", ex.getMessage());
         }
     }
 
     @Test
     void testList_success() {
         final List<SocialPlatformModel> list = socialPlatformService.list();
-        SocialPlatformModel SocialPlatformModel = createSocialPlatform();
+        SocialPlatformModel socialPlatformModel = createSocialPlatform();
 
-        final SocialPlatformModel saved = (SocialPlatformModel) socialPlatformService.save(SocialPlatformModel);
+        final SocialPlatformModel saved = (SocialPlatformModel) socialPlatformService.save(socialPlatformModel);
 
         assertNotNull(saved);
         assertNotNull(saved.getId());
-        assertEquals(SocialPlatformModel.getName(), saved.getName());
-        assertEquals(SocialPlatformModel.getAccessToken(), saved.getAccessToken());
+        assertEquals(socialPlatformModel.getName(), saved.getName());
+        assertEquals(socialPlatformModel.getAccessToken(), saved.getAccessToken());
 
         final List<SocialPlatformModel> newList = socialPlatformService.list();
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
     }
 
     private SocialPlatformModel createSocialPlatform() {

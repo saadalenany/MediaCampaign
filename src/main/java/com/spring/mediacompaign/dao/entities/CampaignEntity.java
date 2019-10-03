@@ -20,15 +20,15 @@ public class CampaignEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "source_page")
+    @JoinColumn(name = "source_page_id")
     private SourcePageEntity sourcePage;
 
     @ManyToOne
-    @JoinColumn(name = "target_page")
+    @JoinColumn(name = "target_page_id")
     private TargetPageEntity targetPage;
 
     @ManyToOne
-    @JoinColumn(name = "social_platform")
+    @JoinColumn(name = "social_platform_id")
     private SocialPlatformEntity socialPlatform;
 
     @Column(name = "source_title")

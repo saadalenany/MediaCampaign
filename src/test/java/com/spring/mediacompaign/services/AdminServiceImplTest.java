@@ -112,7 +112,7 @@ class AdminServiceImplTest extends BaseTest {
         try {
             adminService.delete("X");
         } catch (EmptyResultDataAccessException ex) {
-            assertEquals("No class "+ AdminEntity.class.getName() +" entity with id X exists!", ex.getMessage());
+            assertEquals("No class " + AdminEntity.class.getName() + " entity with id X exists!", ex.getMessage());
         }
     }
 
@@ -129,7 +129,7 @@ class AdminServiceImplTest extends BaseTest {
         assertEquals(adminModel.getPassword(), saved.getPassword());
 
         final List<AdminModel> newList = adminService.list();
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
     }
 
     private AdminModel createAdmin() {
