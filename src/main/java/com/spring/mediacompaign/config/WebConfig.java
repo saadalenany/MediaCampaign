@@ -10,7 +10,7 @@ public class WebConfig {
 
     static {
         configuration = new Configuration(Configuration.VERSION_2_3_28);
-        ClassTemplateLoader loader = new ClassTemplateLoader(WebConfig.class, "/WEB-INF/templates");
+        ClassTemplateLoader loader = new ClassTemplateLoader(new WebConfig().getClass(), "/templates");
         configuration.setTemplateLoader(loader);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
