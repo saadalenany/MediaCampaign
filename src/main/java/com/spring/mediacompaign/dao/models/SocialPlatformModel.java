@@ -9,6 +9,10 @@ public class SocialPlatformModel extends VersionedModel{
 
     private String accessToken;
 
+    private String appId;
+
+    private String appSecret;
+
     private List<CampaignModel> campaigns = new ArrayList<>();
 
     public String getName() {
@@ -27,6 +31,22 @@ public class SocialPlatformModel extends VersionedModel{
         this.accessToken = accessToken;
     }
 
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
     public List<CampaignModel> getCampaigns() {
         return campaigns;
     }
@@ -40,6 +60,8 @@ public class SocialPlatformModel extends VersionedModel{
         return "SocialPlatformModel{" +
                 "name='" + name + '\'' +
                 ", accessToken='" + accessToken + '\'' +
+                ", appId='" + appId + '\'' +
+                ", appSecret='" + appSecret + '\'' +
                 ", campaigns=" + campaigns +
                 '}';
     }

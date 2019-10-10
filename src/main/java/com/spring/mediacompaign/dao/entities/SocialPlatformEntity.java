@@ -22,6 +22,12 @@ public class SocialPlatformEntity {
     @Column(name = "access_token")
     private String accessToken;
 
+    @Column(name = "app_id")
+    private String appId;
+
+    @Column(name = "app_secret")
+    private String appSecret;
+
     @OneToMany(mappedBy = "socialPlatform", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignEntity> campaigns = new ArrayList<>();
 
@@ -47,6 +53,22 @@ public class SocialPlatformEntity {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
     }
 
     public List<CampaignEntity> getCampaigns() {

@@ -8,13 +8,13 @@
                   <h4 class="card-title">Create Social Platform</h4>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form method="POST" action="/social/save">
                     <br/>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">Platform Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="name">
                         </div>
                       </div>
                     </div>
@@ -24,7 +24,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">Access Token</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="access_token">
                         </div>
                       </div>
                     </div>
@@ -32,7 +32,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">App ID</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="app_id">
                         </div>
                       </div>
                     </div>
@@ -40,7 +40,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">App Secret</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="app_secret">
                         </div>
                       </div>
                     </div>

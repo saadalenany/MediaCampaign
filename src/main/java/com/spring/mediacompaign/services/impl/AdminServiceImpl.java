@@ -65,4 +65,10 @@ public class AdminServiceImpl implements AdminService, GeneralValidator<AdminMod
         List<AdminEntity> all = adminRepository.findAll();
         return adminMapper.toModels(all);
     }
+
+    @Override
+    public AdminModel getByUsernameAndPassword(String name, String password) {
+        final AdminEntity adminEntity = adminRepository.findByNameAndPassword(name, password).orElse(null);
+        return adminMapper.toModel(adminEntity);
+    }
 }

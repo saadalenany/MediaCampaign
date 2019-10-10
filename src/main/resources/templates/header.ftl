@@ -67,8 +67,8 @@
                   <i class="material-icons">create</i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCreate">
-                  <a class="dropdown-item" href="/campaign/create">Campaign</a>
-                  <a class="dropdown-item" href="/social/create">Social Platform</a>
+                  <a class="dropdown-item" href="/campaign/create">Create Campaign</a>
+                  <a class="dropdown-item" href="/social/create">Create Social Platform</a>
                 </div>
               </li>
             </ul>

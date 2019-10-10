@@ -135,8 +135,10 @@ class SocialPlatformServiceImplTest extends BaseTest {
 
     private SocialPlatformModel createSocialPlatform() {
         SocialPlatformModel socialPlatformModel = new SocialPlatformModel();
-        socialPlatformModel.setAccessToken(RandomStringUtils.randomAlphanumeric(15));
         socialPlatformModel.setName(RandomStringUtils.randomAlphanumeric(10));
+        socialPlatformModel.setAccessToken(RandomStringUtils.randomAlphanumeric(128));
+        socialPlatformModel.setAppId(RandomStringUtils.randomAlphanumeric(36));
+        socialPlatformModel.setAppSecret(RandomStringUtils.randomAlphanumeric(36));
         return socialPlatformModel;
     }
 }

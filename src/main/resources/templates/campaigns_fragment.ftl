@@ -4,7 +4,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">socialPlatform.getName()</h4>
+              <h4 class="card-title ">${socialPlatform.getName()}</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -14,6 +14,7 @@
                         <th>Campaign Name</th>
                         <th>Scrap Limitation</th>
                         <th>Active</th>
+                        <th>Update</th>
                         <th>Delete</th>
                     </tr>
                   </thead>
@@ -21,8 +22,8 @@
                   <#if socialPlatform.getCampaigns()??>
                       <#list socialPlatform.getCampaigns() as campaign>
                         <tr>
-                          <td>campaign.getName()</td>
-                          <td>campaign.getScrapLimitation()</td>
+                          <td>${campaign.getName()}</td>
+                          <td>${campaign.getScrapLimitation()}</td>
                           <#if campaign.getActive() == true>
                           <td>
                               <a class="nav-link" href="#pablo">
@@ -39,6 +40,11 @@
                           <td>
                               <a class="nav-link" href="#pablo">
                                 <i class="material-icons">delete</i>
+                              </a>
+                          </td>
+                          <td>
+                              <a class="nav-link" href="#pablo">
+                                <i class="material-icons">edit</i>
                               </a>
                           </td>
                         </tr>

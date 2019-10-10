@@ -44,7 +44,13 @@
             <column name="name" type="varchar(75)">
                 <constraints nullable="false"/>
             </column>
-            <column name="access_token" type="varchar(500)">
+            <column name="access_token" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_secret" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

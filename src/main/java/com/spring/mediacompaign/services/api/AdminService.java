@@ -16,4 +16,7 @@ public interface AdminService {
     Boolean delete(String id);
 
     List<AdminModel> list();
+
+    AdminModel getByUsernameAndPassword(String name, String password);
+
 }
