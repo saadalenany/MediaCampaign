@@ -68,7 +68,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCreate">
                   <a class="dropdown-item" href="/campaign/create">Create Campaign</a>
-                  <a class="dropdown-item" href="/social/create">Create Social Platform</a>
+                  <a class="dropdown-item" href="/platform/create">Create Social Platform</a>
                 </div>
               </li>
             </ul>

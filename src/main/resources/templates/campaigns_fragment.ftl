@@ -1,4 +1,3 @@
-<div class="row">
   <#if socialPlatforms??>
       <#list socialPlatforms as socialPlatform>
         <div class="col-md-12">
@@ -39,12 +38,12 @@
                           </#if>
                           <td>
                               <a class="nav-link" href="#pablo">
-                                <i class="material-icons">delete</i>
+                                <i class="material-icons">edit</i>
                               </a>
                           </td>
                           <td>
                               <a class="nav-link" href="#pablo">
-                                <i class="material-icons">edit</i>
+                                <i class="material-icons">delete</i>
                               </a>
                           </td>
                         </tr>
@@ -68,4 +67,3 @@
         <b> Info - </b> No Social Platform exists, Create A social platform now. </span>
     </div>
   </#if>
-</div>

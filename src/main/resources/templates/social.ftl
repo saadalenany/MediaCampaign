@@ -1,4 +1,3 @@
-<div class="row">
   <#if socialPlatforms??>
     <div class="col-md-12">
       <div class="card">
@@ -7,36 +6,31 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table">
-              <thead class=" text-primary">
-                <tr>
-                    <th>Platform Name</th>
-                    <th>Access Token</th>
-                    <th>App ID</th>
-                    <th>App Secret</th>
-                    <th>Update<th>
-                    <th>Delete<th>
-                </tr>
+            <table class="table table-hover">
+              <thead class="text-primary">
+                <th>Platform Name</th>
+                <th>Access Token</th>
+                <th>App ID</th>
+                <th>App Secret</th>
+                <th>Actions<th>
               </thead>
               <tbody>
-                  <#list socialPlatforms as socialPlatform>
-                    <tr>
-                      <td>${socialPlatform.getName()}</td>
-                      <td>${socialPlatform.getAccessToken()}</td>
-                      <td>${socialPlatform.getAppId()}</td>
-                      <td>${socialPlatform.getAppSecret()}</td>
-                      <td>
-                          <a class="nav-link" href="#pablo">
-                            <i class="material-icons">delete</i>
-                          </a>
-                      </td>
-                      <td>
-                          <a class="nav-link" href="#pablo">
-                            <i class="material-icons">edit</i>
-                          </a>
-                      </td>
-                    </tr>
-                  </#list>
+                <#list socialPlatforms as socialPlatform>
+                  <tr>
+                    <td>${socialPlatform.getName()}</td>
+                    <td>${socialPlatform.getAccessToken()}</td>
+                    <td>${socialPlatform.getAppId()}</td>
+                    <td>${socialPlatform.getAppSecret()}</td>
+                    <td>
+                      <a class="nav-link" href="/platform/edit/${socialPlatform.getId()}">
+                        <i class="material-icons">edit</i>
+                      </a>
+                      <a class="nav-link" href="/platform/delete/${socialPlatform.getId()}">
+                         <i class="material-icons">delete</i>
+                      </a>
+                    </td>
+                  </tr>
+                </#list>
               </tbody>
             </table>
           </div>
@@ -52,4 +46,3 @@
         <b> Info - </b> No Social Platform exists, Create A social platform now. </span>
     </div>
   </#if>
-</div>

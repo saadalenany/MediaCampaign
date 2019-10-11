@@ -11,6 +11,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,62 +37,53 @@ public class PagesController {
 
     @RequestMapping({"/", "/home"})
     public String dashboard(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
         HashMap<String, Object> map = new HashMap();
-        if (session.getAttribute("user") != null) {
-            AdminModel user = (AdminModel) session.getAttribute("user");
-            user = adminService.getById(user.getId());
-            map.put("user", user);
-        } else {
-            response.setStatus(301);
-            return login(request, response, "No Session, Try logging in again");
-        }
         map.put("socialPlatforms", socialPlatformService.list());
-        response.setStatus(200);
-        return render(map, "dashboard.ftl");
+        return returnPage("dashboard.ftl", map, request, response);
     }
 
     @RequestMapping("/campaign/create")
     public String createCampaign(HttpServletRequest request, HttpServletResponse response) {
-        return returnPage("create_campaign.ftl", request, response);
-    }
-
-    @RequestMapping("/social/create")
-    public String createSocial(HttpServletRequest request, HttpServletResponse response) {
-        return returnPage("create_social.ftl", request, response);
-    }
-
-    @RequestMapping("/social/save")
-    public void saveSocialPlatform(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
         HashMap<String, Object> map = new HashMap();
-        if (session.getAttribute("user") != null) {
-            AdminModel user = (AdminModel) session.getAttribute("user");
-            user = adminService.getById(user.getId());
-            map.put("user", user);
-        } else {
-            session.setAttribute("errorMessage", "No Session, Try logging in again");
-            response.addHeader("location", "/login");
-            response.setStatus(301);
-        }
+        return returnPage("create_campaign.ftl", map, request, response);
+    }
 
-        SocialPlatformModel socialPlatformModel = new SocialPlatformModel();
-        final String name = request.getParameter("name");
-        if (name != null && !name.isEmpty()) {
-            socialPlatformModel.setName(name);
+    @RequestMapping("/platform/create")
+    public String createSocialPlatform(HttpServletRequest request, HttpServletResponse response) {
+        HashMap<String, Object> map = new HashMap();
+        return returnPage("create_social.ftl", map, request, response);
+    }
+
+    @RequestMapping("/platform/edit/{id}")
+    public String editSocialPlatform(@PathVariable(name = "id") String id, HttpServletRequest request, HttpServletResponse response) {
+        HashMap<String, Object> map = new HashMap();
+        final SocialPlatformModel socialPlatform = socialPlatformService.getById(id);
+        map.put("socialPlatform", socialPlatform);
+        return returnPage("update_social.ftl", map, request, response);
+    }
+
+    @RequestMapping("/platform/delete/{id}")
+    public void deleteSocialPlatform(@PathVariable(name = "id") String id, HttpServletRequest request, HttpServletResponse response) {
+        socialPlatformService.delete(id);
+        response.setHeader("Location", "/home");
+        response.setStatus(302);
+    }
+
+    @RequestMapping("/platform/update")
+    public void updateSocialPlatform(HttpServletRequest request, HttpServletResponse response) {
+        final String id = request.getParameter("id");
+        if (id != null && !id.isEmpty()) {
+            SocialPlatformModel socialPlatformModel = saveDataToPlatform(socialPlatformService.getById(id), request);
+
+            socialPlatformService.update(socialPlatformModel);
         }
-        final String access_token = request.getParameter("access_token");
-        if (access_token != null && !access_token.isEmpty()) {
-            socialPlatformModel.setAccessToken(access_token);
-        }
-        final String app_id = request.getParameter("app_id");
-        if (app_id != null && !app_id.isEmpty()) {
-            socialPlatformModel.setAppId(app_id);
-        }
-        final String app_secret = request.getParameter("app_secret");
-        if (app_secret != null && !app_secret.isEmpty()) {
-            socialPlatformModel.setAppSecret(app_secret);
-        }
+        response.setHeader("Location", "/home");
+        response.setStatus(302);
+    }
+
+    @RequestMapping("/platform/save")
+    public void saveSocialPlatform(HttpServletRequest request, HttpServletResponse response) {
+        SocialPlatformModel socialPlatformModel = saveDataToPlatform(new SocialPlatformModel(), request);
 
         socialPlatformService.save(socialPlatformModel);
         response.setHeader("Location", "/home");
@@ -138,9 +130,8 @@ public class PagesController {
         return stringWriter.toString();
     }
 
-    private String returnPage(String page, HttpServletRequest request, HttpServletResponse response) {
+    private String returnPage(String page, HashMap<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        HashMap<String, Object> map = new HashMap();
         if (session.getAttribute("user") != null) {
             AdminModel user = (AdminModel) session.getAttribute("user");
             user = adminService.getById(user.getId());
@@ -153,4 +144,24 @@ public class PagesController {
         return render(map, page);
     }
 
+    private SocialPlatformModel saveDataToPlatform(SocialPlatformModel socialPlatformModel, HttpServletRequest request) {
+        final String name = request.getParameter("name");
+        if (name != null && !name.isEmpty()) {
+            socialPlatformModel.setName(name);
+        }
+        final String access_token = request.getParameter("access_token");
+        if (access_token != null && !access_token.isEmpty()) {
+            socialPlatformModel.setAccessToken(access_token);
+        }
+        final String app_id = request.getParameter("app_id");
+        if (app_id != null && !app_id.isEmpty()) {
+            socialPlatformModel.setAppId(app_id);
+        }
+        final String app_secret = request.getParameter("app_secret");
+        if (app_secret != null && !app_secret.isEmpty()) {
+            socialPlatformModel.setAppSecret(app_secret);
+        }
+
+        return socialPlatformModel;
+    }
 }
