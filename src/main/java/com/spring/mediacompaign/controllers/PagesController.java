@@ -1,19 +1,13 @@
 package com.spring.mediacompaign.controllers;
 
 import com.spring.mediacompaign.config.WebConfig;
-import com.spring.mediacompaign.dao.models.AdminModel;
-import com.spring.mediacompaign.dao.models.SocialPlatformModel;
-import com.spring.mediacompaign.services.api.AdminService;
-import com.spring.mediacompaign.services.api.CampaignService;
-import com.spring.mediacompaign.services.api.SocialPlatformService;
+import com.spring.mediacompaign.dao.models.*;
+import com.spring.mediacompaign.services.api.*;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +29,12 @@ public class PagesController {
     @Autowired
     private CampaignService campaignService;
 
+    @Autowired
+    private SourcePageService sourcePageService;
+
+    @Autowired
+    private TargetPageService targetPageService;
+
     @RequestMapping({"/", "/home"})
     public String dashboard(HttpServletRequest request, HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap();
@@ -45,7 +45,25 @@ public class PagesController {
     @RequestMapping("/campaign/create")
     public String createCampaign(HttpServletRequest request, HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap();
+        map.put("socialPlatforms", socialPlatformService.list());
+        map.put("sourcePages", sourcePageService.list());
+        map.put("targetPages", targetPageService.list());
         return returnPage("create_campaign.ftl", map, request, response);
+    }
+
+    @RequestMapping("/campaign/save")
+    public void saveCampaign(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") != null) {
+            AdminModel user = (AdminModel) session.getAttribute("user");
+            CampaignModel campaignModel = saveDataToCampaign(new CampaignModel(), request, user.getId());
+            campaignService.save(campaignModel);
+            response.setHeader("Location", "/home");
+            response.setStatus(302);
+        } else {
+            response.setStatus(301);
+            response.setHeader("Location", "/login");
+        }
     }
 
     @RequestMapping("/platform/create")
@@ -106,6 +124,7 @@ public class PagesController {
         if (errorMessage != null) {
             newSession.setAttribute("errorMessage", errorMessage);
         }
+        response.setHeader("Location", "/login");
         return render(new HashMap(), "login.ftl");
     }
 
@@ -164,4 +183,106 @@ public class PagesController {
 
         return socialPlatformModel;
     }
+
+    private CampaignModel saveDataToCampaign(CampaignModel campaignModel, HttpServletRequest request, String owner_id) {
+        final String social_platform = request.getParameter("social_platform");
+        if (social_platform != null && !social_platform.isEmpty()) {
+            campaignModel.setSocialPlatformId(social_platform);
+        }
+        final String name = request.getParameter("name");
+        if (name != null && !name.isEmpty()) {
+            campaignModel.setName(name);
+        }
+
+        String target_id = findExistingTargetPageOrSaveNew(request, owner_id);
+        if ( target_id != null) {
+            campaignModel.setTargetPageId(target_id);
+        }
+        String source_id = findExistingSourcePageOrSaveNew(request, owner_id);
+        if (source_id != null) {
+            campaignModel.setSourcePageId(source_id);
+        }
+
+        final String scrap_limitation = request.getParameter("scrap_limitation");
+        if (scrap_limitation != null && !scrap_limitation.isEmpty()) {
+            campaignModel.setScrapLimitation(Integer.parseInt(scrap_limitation));
+        }
+
+        String post_thread = null;
+        final String number_of_posts = request.getParameter("number_of_posts");
+        if (number_of_posts != null && !number_of_posts.isEmpty()) {
+            post_thread = number_of_posts + ",";
+        }
+        final String per = request.getParameter("per");
+        if (per != null && !per.isEmpty()) {
+            post_thread += per;
+        }
+        campaignModel.setPostThread(post_thread);
+
+        final String[] source_with_ornots = request.getParameterValues("source_with_ornot");
+        if (source_with_ornots != null && source_with_ornots.length > 0 && !source_with_ornots[0].isEmpty()) {
+            campaignModel.setSourceWithOrnot(true);
+        }
+
+        final String[] post_types = request.getParameterValues("post_type");
+        if (post_types != null && post_types.length > 0) {
+            campaignModel.setPostType(String.join(",", post_types));
+        }
+
+        final String block_keywords = request.getParameter("block_keywords");
+        if (block_keywords != null && !block_keywords.isEmpty()) {
+            campaignModel.setBlockKeywords(block_keywords);
+        }
+
+        final String[] actives = request.getParameterValues("active");
+        if (actives != null && actives.length > 0 && !actives[0].isEmpty()) {
+            campaignModel.setActive(true);
+        } else {
+            campaignModel.setActive(false);
+        }
+        return campaignModel;
+    }
+
+    private String findExistingSourcePageOrSaveNew(HttpServletRequest request, String owner_id) {
+        final String source_page_exists = request.getParameter("source_page_exists");
+        if (source_page_exists != null && !source_page_exists.isEmpty()) {
+            return source_page_exists;
+        } else {
+            final String source_page_new = request.getParameter("source_page_new");
+            if (source_page_new != null && !source_page_new.isEmpty()) {
+                SourcePageModel sourcePageModel = new SourcePageModel();
+                sourcePageModel.setPageUrl(source_page_new);
+                sourcePageModel.setOwnerId(owner_id);
+                final String username = request.getParameter("username");
+                if (username != null && !username.isEmpty()) {
+                    sourcePageModel.setUsername(username);
+                }
+                final String password = request.getParameter("password");
+                if (password != null && !password.isEmpty()) {
+                    sourcePageModel.setPassword(password);
+                }
+                final VersionedModel savedPage = sourcePageService.save(sourcePageModel);
+                return savedPage.getId();
+            }
+        }
+        return null;
+    }
+
+    private String findExistingTargetPageOrSaveNew(HttpServletRequest request, String owner_id) {
+        final String target_page_exists = request.getParameter("target_page_exists");
+        if (target_page_exists != null && !target_page_exists.isEmpty()) {
+            return target_page_exists;
+        } else {
+            final String target_page_new = request.getParameter("target_page_new");
+            if (target_page_new != null && !target_page_new.isEmpty()) {
+                TargetPageModel targetPageModel = new TargetPageModel();
+                targetPageModel.setPageUrl(target_page_new);
+                targetPageModel.setOwnerId(owner_id);
+                final VersionedModel savedPage = targetPageService.save(targetPageModel);
+                return savedPage.getId();
+            }
+        }
+        return null;
+    }
+
 }

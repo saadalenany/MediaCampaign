@@ -3,7 +3,7 @@ package com.spring.mediacompaign.services.impl;
 import com.spring.mediacompaign.dao.entities.SourcePageEntity;
 import com.spring.mediacompaign.dao.models.SourcePageModel;
 import com.spring.mediacompaign.dao.models.VersionedModel;
-import com.spring.mediacompaign.dao.repos.SourcePageReository;
+import com.spring.mediacompaign.dao.repos.SourcePageRepository;
 import com.spring.mediacompaign.mappers.SourcePageMapper;
 import com.spring.mediacompaign.services.api.SourcePageService;
 import com.spring.mediacompaign.services.validators.GeneralValidator;
@@ -18,7 +18,7 @@ import java.util.List;
 public class SourcePageServiceImpl implements SourcePageService, GeneralValidator<SourcePageModel> {
 
     @Autowired
-    private SourcePageReository sourcePageRepository;
+    private SourcePageRepository sourcePageRepository;
 
     @Autowired
     private SourcePageMapper sourcePageMapper;
@@ -48,6 +48,13 @@ public class SourcePageServiceImpl implements SourcePageService, GeneralValidato
     public SourcePageModel getById(String id) {
         SourcePageEntity sourcePageEntity = sourcePageRepository.findById(id).
                 orElseThrow(() -> new RuntimeException(String.format("No Source Page found with this id [%s]", id)));
+        return sourcePageMapper.toModel(sourcePageEntity);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    public SourcePageModel getByPageUrl(String pageUrl) {
+        SourcePageEntity sourcePageEntity = sourcePageRepository.findByPageUrl(pageUrl).orElse(null);
         return sourcePageMapper.toModel(sourcePageEntity);
     }
 

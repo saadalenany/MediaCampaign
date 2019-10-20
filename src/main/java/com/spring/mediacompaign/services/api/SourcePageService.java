@@ -13,6 +13,8 @@ public interface SourcePageService {
 
     SourcePageModel getById(String id);
 
+    SourcePageModel getByPageUrl(String pageUrl);
+
     Boolean delete(String id);
 
     List<SourcePageModel> list();

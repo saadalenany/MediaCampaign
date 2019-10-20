@@ -141,9 +141,7 @@
                              foreignKeyName="fk_social_platform_campaign_id"
                              references="social_platform(id)"/>
             </column>
-            <column name="source_title" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="source_title" type="varchar(255)"/>
             <column name="source_with_ornot" type="bool"/>
             <column name="scrap_limitation" type="integer(5)"/>
             <column name="post_thread" type="varchar(255)">

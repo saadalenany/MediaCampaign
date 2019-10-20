@@ -52,6 +52,13 @@ public class TargetPageServiceImpl implements TargetPageService, GeneralValidato
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    public TargetPageModel getByPageUrl(String pageUrl) {
+        TargetPageEntity targetPageEntity = targetPageRepository.findByPageUrl(pageUrl).orElse(null);
+        return targetPageMapper.toModel(targetPageEntity);
+    }
+
+    @Override
     public Boolean delete(String id) {
         targetPageRepository.deleteById(id);
         return !targetPageRepository.findById(id).isPresent();

@@ -14,7 +14,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">Platform Name</label>
-                          <input type="text" class="form-control" name="name">
+                          <input type="text" class="form-control" name="name" required>
                         </div>
                       </div>
                     </div>
@@ -24,7 +24,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">Access Token</label>
-                          <input type="text" class="form-control" name="access_token">
+                          <input type="text" class="form-control" name="access_token" required>
                         </div>
                       </div>
                     </div>
@@ -32,7 +32,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">App ID</label>
-                          <input type="text" class="form-control" name="app_id">
+                          <input type="text" class="form-control" name="app_id" required>
                         </div>
                       </div>
                     </div>
@@ -40,7 +40,7 @@
                       <div class="col-md-6">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">App Secret</label>
-                          <input type="text" class="form-control" name="app_secret">
+                          <input type="text" class="form-control" name="app_secret" required>
                         </div>
                       </div>
                     </div>

@@ -7,7 +7,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table">
+                <table class="table table-hover">
                   <thead class=" text-primary">
                     <tr>
                         <th>Campaign Name</th>
@@ -21,8 +21,16 @@
                   <#if socialPlatform.getCampaigns()??>
                       <#list socialPlatform.getCampaigns() as campaign>
                         <tr>
-                          <td>${campaign.getName()}</td>
-                          <td>${campaign.getScrapLimitation()}</td>
+                          <td>
+                              <#if campaign.getName()??>
+                              ${campaign.getName()}
+                              </#if>
+                          </td>
+                          <td>
+                              <#if campaign.getName()??>
+                              ${campaign.getScrapLimitation()}
+                              </#if>
+                          </td>
                           <#if campaign.getActive() == true>
                           <td>
                               <a class="nav-link" href="#pablo">

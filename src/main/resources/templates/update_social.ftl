@@ -23,7 +23,7 @@
                               <#if socialPlatform??>
                                 value="${socialPlatform.getName()}"
                               </#if>
-                          >
+                          required>
                         </div>
                       </div>
                     </div>
@@ -37,7 +37,7 @@
                             <#if socialPlatform??>
                               value="${socialPlatform.getAccessToken()}"
                             </#if>
-                          >
+                          required>
                         </div>
                       </div>
                     </div>
@@ -49,7 +49,7 @@
                             <#if socialPlatform??>
                               value="${socialPlatform.getAppId()}"
                             </#if>
-                          >
+                          required>
                         </div>
                       </div>
                     </div>
@@ -61,7 +61,7 @@
                             <#if socialPlatform??>
                               value="${socialPlatform.getAppSecret()}"
                             </#if>
-                          >
+                          required>
                         </div>
                       </div>
                     </div>

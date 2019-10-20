@@ -193,6 +193,8 @@ class ImageServiceImplTest extends BaseTest {
         SocialPlatformModel socialPlatformModel = new SocialPlatformModel();
         socialPlatformModel.setAccessToken(RandomStringUtils.randomAlphanumeric(15));
         socialPlatformModel.setName(RandomStringUtils.randomAlphanumeric(10));
+        socialPlatformModel.setAppSecret(RandomStringUtils.randomAlphanumeric(10));
+        socialPlatformModel.setAppId(RandomStringUtils.randomAlphanumeric(10));
         final SocialPlatformModel savedSocial = (SocialPlatformModel) socialPlatformService.save(socialPlatformModel);
 
         assertNotNull(savedSocial);
@@ -210,6 +212,7 @@ class ImageServiceImplTest extends BaseTest {
         campaignModel.setPostThread(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setPostType(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setActive(false);
+        campaignModel.setScrapLimitation(10);
 
         final CampaignModel savedCampaign = (CampaignModel) campaignService.save(campaignModel);
 

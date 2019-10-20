@@ -222,6 +222,8 @@ class CampaignServiceImplTest extends BaseTest {
         //Create a Social Platform
         SocialPlatformModel socialPlatformModel = new SocialPlatformModel();
         socialPlatformModel.setAccessToken(RandomStringUtils.randomAlphanumeric(15));
+        socialPlatformModel.setAppId(RandomStringUtils.randomAlphanumeric(15));
+        socialPlatformModel.setAppSecret(RandomStringUtils.randomAlphanumeric(15));
         socialPlatformModel.setName(RandomStringUtils.randomAlphanumeric(10));
         final SocialPlatformModel savedSocial = (SocialPlatformModel) socialPlatformService.save(socialPlatformModel);
 
@@ -240,6 +242,7 @@ class CampaignServiceImplTest extends BaseTest {
         campaignModel.setPostThread(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setPostType(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setActive(false);
+        campaignModel.setScrapLimitation(10);
 
         return campaignModel;
     }
