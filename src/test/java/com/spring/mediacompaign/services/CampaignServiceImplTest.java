@@ -44,7 +44,8 @@ class CampaignServiceImplTest extends BaseTest {
         assertEquals(campaignModel.getTargetPageId(), saved.getTargetPageId());
         assertEquals(campaignModel.getSocialPlatformId(), saved.getSocialPlatformId());
         assertEquals(campaignModel.getPostType(), saved.getPostType());
-        assertEquals(campaignModel.getPostThread(), saved.getPostThread());
+        assertEquals(campaignModel.getNop(), saved.getNop());
+        assertEquals(campaignModel.getPer(), saved.getPer());
         assertEquals(campaignModel.getSourceTitle(), saved.getSourceTitle());
     }
 
@@ -71,7 +72,8 @@ class CampaignServiceImplTest extends BaseTest {
         assertEquals(campaignModel.getTargetPageId(), saved.getTargetPageId());
         assertEquals(campaignModel.getSocialPlatformId(), saved.getSocialPlatformId());
         assertEquals(campaignModel.getPostType(), saved.getPostType());
-        assertEquals(campaignModel.getPostThread(), saved.getPostThread());
+        assertEquals(campaignModel.getNop(), saved.getNop());
+        assertEquals(campaignModel.getPer(), saved.getPer());
         assertEquals(campaignModel.getSourceTitle(), saved.getSourceTitle());
 
         final String updatedName = saved.getName() + "-updated";
@@ -103,7 +105,8 @@ class CampaignServiceImplTest extends BaseTest {
         assertEquals(campaignModel.getTargetPageId(), saved.getTargetPageId());
         assertEquals(campaignModel.getSocialPlatformId(), saved.getSocialPlatformId());
         assertEquals(campaignModel.getPostType(), saved.getPostType());
-        assertEquals(campaignModel.getPostThread(), saved.getPostThread());
+        assertEquals(campaignModel.getNop(), saved.getNop());
+        assertEquals(campaignModel.getPer(), saved.getPer());
         assertEquals(campaignModel.getSourceTitle(), saved.getSourceTitle());
 
         final CampaignModel byId = campaignService.getById(saved.getId());
@@ -114,7 +117,8 @@ class CampaignServiceImplTest extends BaseTest {
         assertEquals(saved.getTargetPageId(), byId.getTargetPageId());
         assertEquals(saved.getSocialPlatformId(), byId.getSocialPlatformId());
         assertEquals(saved.getPostType(), byId.getPostType());
-        assertEquals(saved.getPostThread(), byId.getPostThread());
+        assertEquals(campaignModel.getNop(), saved.getNop());
+        assertEquals(campaignModel.getPer(), saved.getPer());
         assertEquals(saved.getSourceTitle(), byId.getSourceTitle());
     }
 
@@ -141,7 +145,8 @@ class CampaignServiceImplTest extends BaseTest {
         assertEquals(campaignModel.getTargetPageId(), saved.getTargetPageId());
         assertEquals(campaignModel.getSocialPlatformId(), saved.getSocialPlatformId());
         assertEquals(campaignModel.getPostType(), saved.getPostType());
-        assertEquals(campaignModel.getPostThread(), saved.getPostThread());
+        assertEquals(campaignModel.getNop(), saved.getNop());
+        assertEquals(campaignModel.getPer(), saved.getPer());
         assertEquals(campaignModel.getSourceTitle(), saved.getSourceTitle());
 
         final Boolean deleted = campaignService.delete(saved.getId());
@@ -172,7 +177,8 @@ class CampaignServiceImplTest extends BaseTest {
         assertEquals(campaignModel.getTargetPageId(), saved.getTargetPageId());
         assertEquals(campaignModel.getSocialPlatformId(), saved.getSocialPlatformId());
         assertEquals(campaignModel.getPostType(), saved.getPostType());
-        assertEquals(campaignModel.getPostThread(), saved.getPostThread());
+        assertEquals(campaignModel.getNop(), saved.getNop());
+        assertEquals(campaignModel.getPer(), saved.getPer());
         assertEquals(campaignModel.getSourceTitle(), saved.getSourceTitle());
 
         final List<CampaignModel> newList = campaignService.list();
@@ -239,7 +245,8 @@ class CampaignServiceImplTest extends BaseTest {
         campaignModel.setSocialPlatformId(savedSocial.getId());
         campaignModel.setName(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setSourceTitle(RandomStringUtils.randomAlphanumeric(12));
-        campaignModel.setPostThread(RandomStringUtils.randomAlphanumeric(10));
+        campaignModel.setNop(10);
+        campaignModel.setPer("hour");
         campaignModel.setPostType(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setActive(false);
         campaignModel.setScrapLimitation(10);

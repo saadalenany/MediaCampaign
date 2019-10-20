@@ -42,6 +42,7 @@ public class PagesController {
         return returnPage("dashboard.ftl", map, request, response);
     }
 
+    /**********CAMPAIGN APIs******************************/
     @RequestMapping("/campaign/create")
     public String createCampaign(HttpServletRequest request, HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap();
@@ -49,6 +50,17 @@ public class PagesController {
         map.put("sourcePages", sourcePageService.list());
         map.put("targetPages", targetPageService.list());
         return returnPage("create_campaign.ftl", map, request, response);
+    }
+
+    @RequestMapping("/campaign/edit/{id}")
+    public String editCampaign(@PathVariable(name = "id") String id, HttpServletRequest request, HttpServletResponse response) {
+        HashMap<String, Object> map = new HashMap();
+        final CampaignModel campaignById = campaignService.getById(id);
+        map.put("socialPlatforms", socialPlatformService.list());
+        map.put("sourcePages", sourcePageService.list());
+        map.put("targetPages", targetPageService.list());
+        map.put("campaign", campaignById);
+        return returnPage("update_campaign.ftl", map, request, response);
     }
 
     @RequestMapping("/campaign/save")
@@ -66,6 +78,34 @@ public class PagesController {
         }
     }
 
+    @RequestMapping("/campaign/update")
+    public void updateCampaign(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") != null) {
+            AdminModel user = (AdminModel) session.getAttribute("user");
+            CampaignModel campaignModel = saveDataToCampaign(new CampaignModel(), request, user.getId());
+
+            final String campaign_id = request.getParameter("campaign_id");
+            if (campaign_id != null && !campaign_id.isEmpty()) {
+                campaignModel.setId(campaign_id);
+            }
+            campaignService.update(campaignModel);
+            response.setHeader("Location", "/home");
+            response.setStatus(302);
+        } else {
+            response.setStatus(301);
+            response.setHeader("Location", "/login");
+        }
+    }
+
+    @RequestMapping("/campaign/delete/{id}")
+    public void deleteCampaign(@PathVariable(name = "id") String id, HttpServletRequest request, HttpServletResponse response) {
+        campaignService.delete(id);
+        response.setHeader("Location", "/home");
+        response.setStatus(302);
+    }
+
+    /**********SOCIAL PLATFORM APIs************************/
     @RequestMapping("/platform/create")
     public String createSocialPlatform(HttpServletRequest request, HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap();
@@ -208,16 +248,14 @@ public class PagesController {
             campaignModel.setScrapLimitation(Integer.parseInt(scrap_limitation));
         }
 
-        String post_thread = null;
         final String number_of_posts = request.getParameter("number_of_posts");
         if (number_of_posts != null && !number_of_posts.isEmpty()) {
-            post_thread = number_of_posts + ",";
+            campaignModel.setNop(Integer.parseInt(number_of_posts));
         }
         final String per = request.getParameter("per");
         if (per != null && !per.isEmpty()) {
-            post_thread += per;
+            campaignModel.setPer(per);
         }
-        campaignModel.setPostThread(post_thread);
 
         final String[] source_with_ornots = request.getParameterValues("source_with_ornot");
         if (source_with_ornots != null && source_with_ornots.length > 0 && !source_with_ornots[0].isEmpty()) {

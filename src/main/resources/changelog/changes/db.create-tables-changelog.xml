@@ -144,7 +144,10 @@
             <column name="source_title" type="varchar(255)"/>
             <column name="source_with_ornot" type="bool"/>
             <column name="scrap_limitation" type="integer(5)"/>
-            <column name="post_thread" type="varchar(255)">
+            <column name="number_of_posts" type="integer(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="per" type="varchar(25)">
                 <constraints nullable="false"/>
             </column>
             <column name="post_type" type="varchar(255)">

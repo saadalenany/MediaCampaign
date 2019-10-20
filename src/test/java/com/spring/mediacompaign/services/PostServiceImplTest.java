@@ -206,7 +206,8 @@ class PostServiceImplTest extends BaseTest {
         campaignModel.setSocialPlatformId(savedSocial.getId());
         campaignModel.setName(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setSourceTitle(RandomStringUtils.randomAlphanumeric(12));
-        campaignModel.setPostThread(RandomStringUtils.randomAlphanumeric(10));
+        campaignModel.setNop(10);
+        campaignModel.setPer("hour");
         campaignModel.setPostType(RandomStringUtils.randomAlphanumeric(10));
         campaignModel.setActive(false);
         campaignModel.setScrapLimitation(10);
@@ -221,7 +222,8 @@ class PostServiceImplTest extends BaseTest {
         assertEquals(campaignModel.getTargetPageId(), savedCampaign.getTargetPageId());
         assertEquals(campaignModel.getSocialPlatformId(), savedCampaign.getSocialPlatformId());
         assertEquals(campaignModel.getPostType(), savedCampaign.getPostType());
-        assertEquals(campaignModel.getPostThread(), savedCampaign.getPostThread());
+        assertEquals(campaignModel.getNop(), savedCampaign.getNop());
+        assertEquals(campaignModel.getPer(), savedCampaign.getPer());
         assertEquals(campaignModel.getSourceTitle(), savedCampaign.getSourceTitle());
 
         //Create a Post

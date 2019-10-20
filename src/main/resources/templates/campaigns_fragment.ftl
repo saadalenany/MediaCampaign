@@ -45,12 +45,12 @@
                           </td>
                           </#if>
                           <td>
-                              <a class="nav-link" href="#pablo">
+                              <a class="nav-link" href="/campaign/edit/${campaign.getId()}">
                                 <i class="material-icons">edit</i>
                               </a>
                           </td>
                           <td>
-                              <a class="nav-link" href="#pablo">
+                              <a class="nav-link" href="/campaign/delete/${campaign.getId()}">
                                 <i class="material-icons">delete</i>
                               </a>
                           </td>

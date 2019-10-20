@@ -19,7 +19,9 @@ public class CampaignModel extends VersionedModel{
 
     private Integer scrapLimitation;
 
-    private String postThread;
+    private Integer nop;
+
+    private String per;
 
     private String postType;
 
@@ -85,12 +87,20 @@ public class CampaignModel extends VersionedModel{
         this.scrapLimitation = scrapLimitation;
     }
 
-    public String getPostThread() {
-        return postThread;
+    public Integer getNop() {
+        return nop;
     }
 
-    public void setPostThread(String postThread) {
-        this.postThread = postThread;
+    public void setNop(Integer nop) {
+        this.nop = nop;
+    }
+
+    public String getPer() {
+        return per;
+    }
+
+    public void setPer(String per) {
+        this.per = per;
     }
 
     public String getPostType() {
@@ -135,7 +145,8 @@ public class CampaignModel extends VersionedModel{
                 ", sourceTitle='" + sourceTitle + '\'' +
                 ", sourceWithOrnot=" + sourceWithOrnot +
                 ", scrapLimitation=" + scrapLimitation +
-                ", postThread='" + postThread + '\'' +
+                ", nop=" + nop +
+                ", per='" + per + '\'' +
                 ", postType='" + postType + '\'' +
                 ", blockKeywords='" + blockKeywords + '\'' +
                 ", active=" + active +
